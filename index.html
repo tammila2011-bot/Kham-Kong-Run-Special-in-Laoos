@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Run Checkpoint</title>
+    <!-- ใช้ Tailwind CSS สำหรับความสวยงามและแสดงผลได้ดีบนมือถือ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f3f4f6; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+        <!-- Header -->
+        <div class="bg-green-600 text-white p-4 flex justify-between items-center">
+            <h1 class="text-lg font-semibold">🏃 City Run Checkpoint</h1>
+            <button id="toggleViewBtn" class="bg-green-800 hover:bg-green-700 px-3 py-1 rounded text-sm transition shadow" onclick="toggleView()">
+                โหมด Admin
+            </button>
+        </div>
+
+        <!-- หน้าสำหรับนักวิ่ง (Runner View) -->
+        <div id="runnerView" class="p-6">
+            <p class="text-gray-600 mb-6 text-sm bg-blue-50 p-3 rounded-lg border border-blue-100">
+                📌 <b>คำแนะนำ:</b> กรุณาตอบคำถามเมื่อเดินทางไปถึงแต่ละจุด (ระบบบันทึกคำตอบให้อัตโนมัติ ปิดหน้าจอเปิดใหม่ข้อมูลไม่หาย)
+            </p>
+
+            <form id="quizForm">
+                <!-- Checkpoint 1 -->
+                <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
+                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 1: ศาลาท่าน้ำวัดหลวง</h2>
+                    <p class="mb-3 text-gray-700 text-sm">มองไปรอบๆ ศาลาท่าน้ำแห่งนี้ โครงสร้างหลักถูกสร้างขึ้นจากวัสดุชนิดใด?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q1" value="ไม้สัก" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>ไม้สัก</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q1" value="ปูนและคอนกรีต" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>ปูนและคอนกรีต</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q1" value="เหล็กกล้า" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>เหล็กกล้า</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Checkpoint 2 -->
+                <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
+                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 2: ระเบียงโขง</h2>
+                    <p class="mb-3 text-gray-700 text-sm">จากจุดชมวิวระเบียงโขง จุดสังเกตหลักที่มองเห็นฝั่งตรงข้ามแม่น้ำคืออะไร?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q2" value="เมืองห้วยทราย สปป.ลาว" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>เมืองห้วยทราย สปป.ลาว</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q2" value="เกาะดอนทรายกลางน้ำ" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>เกาะดอนทรายกลางน้ำ</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q2" value="สะพานแขวน" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>สะพานแขวน</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Checkpoint 3 -->
+                <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
+                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 3: กาดเขียว</h2>
+                    <p class="mb-3 text-gray-700 text-sm">สินค้าที่เป็นจุดเด่นหลักของแม่ค้าในตลาดแห่งนี้คืออะไร?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q3" value="อาหารทะเลสด" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>อาหารทะเลสด</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q3" value="สินค้าไอที" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>สินค้าไอทีและอิเล็กทรอนิกส์</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
+                            <input type="radio" name="q3" value="พืชผักปลอดภัย" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>พืชผักปลอดภัยและอาหารพื้นถิ่น</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3 mt-8">
+                    <button type="button" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-blue-700 transition" onclick="submitRunner()">
+                        ✅ ส่งคำตอบยืนยันการเช็คพอยต์
+                    </button>
+                    <button type="button" class="w-full text-red-500 font-semibold py-2 text-sm hover:underline" onclick="resetProgress()">
+                        เริ่มทำใหม่ (ลบข้อมูลที่ตอบไว้)
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- หน้าสำหรับแอดมิน (Admin View) -->
+        <div id="adminView" class="p-6 hidden bg-gray-50">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">ระบบตรวจสอบ (Admin Dashboard)</h2>
+            <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-200">
+                <table class="w-full text-left border-collapse min-w-[500px]">
+                    <thead>
+                        <tr class="bg-gray-100 text-sm text-gray-600">
+                            <th class="p-3 border-b">รหัสนักวิ่ง</th>
+                            <th class="p-3 border-b text-center">จุดที่ 1</th>
+                            <th class="p-3 border-b text-center">จุดที่ 2</th>
+                            <th class="p-3 border-b text-center">จุดที่ 3</th>
+                            <th class="p-3 border-b text-center">คะแนนรวม</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <!-- ข้อมูลจะถูกเพิ่มที่นี่อัตโนมัติ -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button class="bg-red-100 text-red-600 px-4 py-2 rounded text-sm font-semibold hover:bg-red-200" onclick="clearAdminData()">ล้างข้อมูลแอดมิน</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. การตั้งค่าเฉลยคำตอบ ---
+        const correctAnswers = {
+            q1: 'ไม้สัก',
+            q2: 'เมืองห้วยทราย สปป.ลาว',
+            q3: 'พืชผักปลอดภัย' 
+        };
+
+        // --- 2. ฟังก์ชันสลับหน้า นักวิ่ง/แอดมิน ---
+        let currentView = 'runner';
+        function toggleView() {
+            const runnerView = document.getElementById('runnerView');
+            const adminView = document.getElementById('adminView');
+            const toggleBtn = document.getElementById('toggleViewBtn');
+
+            if (currentView === 'runner') {
+                runnerView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                toggleBtn.innerText = 'กลับไปโหมดนักวิ่ง';
+                currentView = 'admin';
+                loadAdminData(); // โหลดข้อมูลใหม่ทุกครั้งที่เปิดหน้าแอดมิน
+            } else {
+                runnerView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                toggleBtn.innerText = 'โหมด Admin';
+                currentView = 'runner';
+            }
+        }
+
+        // --- 3. ระบบบันทึกสถานะกันรีเฟรชหาย (Runner) ---
+        window.onload = loadProgress;
+
+        function saveProgress() {
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
+            const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
+            // บันทึกลง localStorage ของเบราว์เซอร์
+            localStorage.setItem('cityRunProgress', JSON.stringify({ q1, q2, q3 }));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('cityRunProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                if(progress.q1) document.querySelector(`input[name="q1"][value="${progress.q1}"]`) && (document.querySelector(`input[name="q1"][value="${progress.q1}"]`).checked = true);
+                if(progress.q2) document.querySelector(`input[name="q2"][value="${progress.q2}"]`) && (document.querySelector(`input[name="q2"][value="${progress.q2}"]`).checked = true);
+                if(progress.q3) document.querySelector(`input[name="q3"][value="${progress.q3}"]`) && (document.querySelector(`input[name="q3"][value="${progress.q3}"]`).checked = true);
+            }
+        }
+
+        function resetProgress() {
+            if(confirm("แน่ใจหรือไม่ว่าต้องการเริ่มใหม่? ข้อมูลที่เลือกไว้จะหายไป")) {
+                localStorage.removeItem('cityRunProgress');
+                document.getElementById('quizForm').reset();
+            }
+        }
+
+        function submitRunner() {
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
+            const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
+
+            // ตรวจสอบว่าไปครบ 3 จุดหรือยัง
+            if (!q1 || !q2 || !q3) {
+                alert("⚠️ กรุณาเดินทางและตอบคำถามให้ครบทั้ง 3 จุดก่อนส่งผลครับ");
+                return;
+            }
+
+            // ตรวจคะแนน
+            let score = 0;
+            if(q1 === correctAnswers.q1) score++;
+            if(q2 === correctAnswers.q2) score++;
+            if(q3 === correctAnswers.q3) score++;
+
+            // จำลองการส่งข้อมูลเข้าหลังบ้าน (บันทึกลง localStorage ฝั่งแอดมิน)
+            const newSubmission = {
+                id: 'RUN-' + Math.floor(1000 + Math.random() * 9000), // สุ่มเลข BIB นักวิ่ง
+                q1: q1, q2: q2, q3: q3, score: score,
+                time: new Date().toLocaleTimeString('th-TH')
+            };
+            let submissions = JSON.parse(localStorage.getItem('cityRunSubmissions') || '[]');
+            submissions.unshift(newSubmission); // เอาข้อมูลใหม่ไว้บนสุด
+            localStorage.setItem('cityRunSubmissions', JSON.stringify(submissions));
+
+            alert(`🎉 ส่งผลสำเร็จ! คุณได้คะแนนความแม่นยำ: ${score}/3 จุด`);
+            
+            // ล้างหน้าจอเพื่อเตรียมนักวิ่งคนต่อไป
+            localStorage.removeItem('cityRunProgress');
+            document.getElementById('quizForm').reset();
+        }
+
+        // --- 4. ระบบหลังบ้าน (Admin) ---
+        function loadAdminData() {
+            const submissions = JSON.parse(localStorage.getItem('cityRunSubmissions') || '[]');
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '';
+
+            if(submissions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-500">ยังไม่มีข้อมูลการส่งคำตอบ</td></tr>`;
+                return;
+            }
+
+            submissions.forEach(sub => {
+                const checkAnswer = (ans, correctKey) => {
+                    if(ans === correctAnswers[correctKey]) return `<span class="text-green-600 font-bold text-lg">✅</span>`;
+                    return `<span class="text-red-500 font-bold text-lg">❌</span><br><span class="text-xs text-gray-500">${ans}</span>`;
+                };
+
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-gray-100 bg-white hover:bg-gray-50 transition";
+                tr.innerHTML = `
+                    <td class="p-3">
+                        <div class="font-bold text-blue-700">${sub.id}</div>
+                        <div class="text-xs text-gray-400">เวลา: ${sub.time}</div>
+                    </td>
+                    <td class="p-3 text-center align-middle">${checkAnswer(sub.q1, 'q1')}</td>
+                    <td class="p-3 text-center align-middle">${checkAnswer(sub.q2, 'q2')}</td>
+                    <td class="p-3 text-center align-middle">${checkAnswer(sub.q3, 'q3')}</td>
+                    <td class="p-3 text-center font-extrabold text-lg ${sub.score === 3 ? 'text-green-600' : 'text-orange-500'}">${sub.score}/3</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function clearAdminData() {
+            if(confirm("แน่ใจหรือไม่ที่จะล้างฐานข้อมูลหลังบ้านทั้งหมด?")) {
+                localStorage.removeItem('cityRunSubmissions');
+                loadAdminData();
+            }
+        }
+    </script>
+</body>
+</html>
