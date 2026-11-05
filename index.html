@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Run Checkpoint</title>
-    <!-- ใช้ Tailwind CSS สำหรับความสวยงามและแสดงผลได้ดีบนมือถือ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -15,9 +14,9 @@
 <body class="p-4 md:p-8">
     <div class="max-w-xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
         <!-- Header -->
-        <div class="bg-green-600 text-white p-4 flex justify-between items-center">
-            <h1 class="text-lg font-semibold">🏃 Kham Kong Run #Special Checkpoint in Laos</h1>
-            <button id="toggleViewBtn" class="bg-green-800 hover:bg-green-700 px-3 py-1 rounded text-sm transition shadow" onclick="toggleView()">
+        <div class="bg-green-600 text-white p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <h1 class="text-lg font-semibold leading-tight">🏃 Kham Kong Run<br><span class="text-sm font-normal">#Special Checkpoint in Laos</span></h1>
+            <button id="toggleViewBtn" class="bg-green-800 hover:bg-green-700 px-3 py-1 rounded text-sm transition shadow whitespace-nowrap" onclick="toggleView()">
                 โหมด Admin
             </button>
         </div>
@@ -29,6 +28,12 @@
             </p>
 
             <form id="quizForm">
+                <!-- ช่องกรอก BIB -->
+                <div class="mb-6 p-4 border-2 rounded-lg bg-green-50 border-green-200">
+                    <label for="bibNumber" class="block font-semibold text-green-800 mb-2">🏷️ รหัสหมายเลขวิ่ง (BIB):</label>
+                    <input type="text" id="bibNumber" placeholder="เช่น 1054" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-lg text-center" oninput="saveProgress()">
+                </div>
+
                 <!-- Checkpoint 1 -->
                 <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
                     <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 1: วัดจอมเขามณีรัตน</h2>
@@ -46,40 +51,36 @@
                             <input type="radio" name="q1" value="ทิศตะวันออก" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
                             <span>ทิศตะวันออก</span>
                         </label>
-                        <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                            <input type="radio" name="q1" value="ทิศตะวันตก" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
-                            <span>ทิศตะวันตก</span>
-                        </label>
                     </div>
                 </div>
 
                 <!-- Checkpoint 2 -->
                 <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
-                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 2: ค่ายทหารฝรั่งเศส</h2>
-                    <p class="mb-3 text-gray-700 text-sm">จากจุดชมวิวค่ายทหารแห่งนี้ จุดสังเกตหลักที่มองเห็นฝั่งตรงข้ามแม่น้ำคืออะไร?</p>
+                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 2: ระเบียงโขง</h2>
+                    <p class="mb-3 text-gray-700 text-sm">จากจุดชมวิวระเบียงโขง จุดสังเกตหลักที่มองเห็นฝั่งตรงข้ามแม่น้ำคืออะไร?</p>
                     <div class="space-y-2 text-sm">
                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                            <input type="radio" name="q2" value="" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
-                            <span>พระใหญ่บนภูเขาฝั่งไทย</span>
+                            <input type="radio" name="q2" value="เมืองห้วยทราย สปป.ลาว" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <span>เมืองห้วยทราย สปป.ลาว</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
                             <input type="radio" name="q2" value="เกาะดอนทรายกลางน้ำ" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
-                            <span>ตลาดเมืองห้วยทราย</span>
+                            <span>เกาะดอนทรายกลางน้ำ</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
                             <input type="radio" name="q2" value="สะพานแขวน" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
-                            <span>สะพานข้ามไทย-ลาว</span>
+                            <span>สะพานแขวน</span>
                         </label>
                     </div>
                 </div>
 
                 <!-- Checkpoint 3 -->
                 <div class="mb-6 p-4 border-2 rounded-lg bg-gray-50 border-gray-200">
-                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 3: ตลาดทั่วไปเมืองห้วยทราย</h2>
+                    <h2 class="font-semibold text-lg text-green-700 mb-2">📍 จุดที่ 3: กาดเขียว</h2>
                     <p class="mb-3 text-gray-700 text-sm">สินค้าที่เป็นจุดเด่นหลักของแม่ค้าในตลาดแห่งนี้คืออะไร?</p>
                     <div class="space-y-2 text-sm">
                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                            <input type="radio" name="q3" value="ก๋วยเตี๋ยว(เฝ๋อลาว)" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
+                            <input type="radio" name="q3" value="อาหารทะเลสด" class="form-radio h-5 w-5 text-green-600" onchange="saveProgress()">
                             <span>อาหารทะเลสด</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-gray-100 rounded">
@@ -111,7 +112,7 @@
                 <table class="w-full text-left border-collapse min-w-[500px]">
                     <thead>
                         <tr class="bg-gray-100 text-sm text-gray-600">
-                            <th class="p-3 border-b">รหัสนักวิ่ง</th>
+                            <th class="p-3 border-b">รหัสนักวิ่ง (BIB)</th>
                             <th class="p-3 border-b text-center">จุดที่ 1</th>
                             <th class="p-3 border-b text-center">จุดที่ 2</th>
                             <th class="p-3 border-b text-center">จุดที่ 3</th>
@@ -131,8 +132,9 @@
 
     <script>
         // --- 1. การตั้งค่าเฉลยคำตอบ ---
+        // (แก้ไขเฉลยให้ตรงกับคำถามจริงของคุณได้ที่นี่)
         const correctAnswers = {
-            q1: 'ไม้สัก',
+            q1: 'ทิศตะวันออก', 
             q2: 'เมืองห้วยทราย สปป.ลาว',
             q3: 'พืชผักปลอดภัย' 
         };
@@ -149,7 +151,7 @@
                 adminView.classList.remove('hidden');
                 toggleBtn.innerText = 'กลับไปโหมดนักวิ่ง';
                 currentView = 'admin';
-                loadAdminData(); // โหลดข้อมูลใหม่ทุกครั้งที่เปิดหน้าแอดมิน
+                loadAdminData();
             } else {
                 runnerView.classList.remove('hidden');
                 adminView.classList.add('hidden');
@@ -162,17 +164,18 @@
         window.onload = loadProgress;
 
         function saveProgress() {
+            const bib = document.getElementById('bibNumber').value;
             const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
             const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
             const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
-            // บันทึกลง localStorage ของเบราว์เซอร์
-            localStorage.setItem('cityRunProgress', JSON.stringify({ q1, q2, q3 }));
+            localStorage.setItem('cityRunProgress', JSON.stringify({ bib, q1, q2, q3 }));
         }
 
         function loadProgress() {
             const saved = localStorage.getItem('cityRunProgress');
             if (saved) {
                 const progress = JSON.parse(saved);
+                if(progress.bib) document.getElementById('bibNumber').value = progress.bib;
                 if(progress.q1) document.querySelector(`input[name="q1"][value="${progress.q1}"]`) && (document.querySelector(`input[name="q1"][value="${progress.q1}"]`).checked = true);
                 if(progress.q2) document.querySelector(`input[name="q2"][value="${progress.q2}"]`) && (document.querySelector(`input[name="q2"][value="${progress.q2}"]`).checked = true);
                 if(progress.q3) document.querySelector(`input[name="q3"][value="${progress.q3}"]`) && (document.querySelector(`input[name="q3"][value="${progress.q3}"]`).checked = true);
@@ -187,35 +190,39 @@
         }
 
         function submitRunner() {
+            const bib = document.getElementById('bibNumber').value.trim();
             const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
             const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
             const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
 
-            // ตรวจสอบว่าไปครบ 3 จุดหรือยัง
+            if (!bib) {
+                alert("⚠️ กรุณากรอกรหัสหมายเลขวิ่ง (BIB) ให้เรียบร้อยครับ");
+                document.getElementById('bibNumber').focus();
+                return;
+            }
+
             if (!q1 || !q2 || !q3) {
                 alert("⚠️ กรุณาเดินทางและตอบคำถามให้ครบทั้ง 3 จุดก่อนส่งผลครับ");
                 return;
             }
 
-            // ตรวจคะแนน
             let score = 0;
             if(q1 === correctAnswers.q1) score++;
             if(q2 === correctAnswers.q2) score++;
             if(q3 === correctAnswers.q3) score++;
 
-            // จำลองการส่งข้อมูลเข้าหลังบ้าน (บันทึกลง localStorage ฝั่งแอดมิน)
+            // ใช้เลข BIB ที่กรอกเป็น ID ในหน้า Admin
             const newSubmission = {
-                id: 'RUN-' + Math.floor(1000 + Math.random() * 9000), // สุ่มเลข BIB นักวิ่ง
+                id: 'BIB: ' + bib, 
                 q1: q1, q2: q2, q3: q3, score: score,
                 time: new Date().toLocaleTimeString('th-TH')
             };
             let submissions = JSON.parse(localStorage.getItem('cityRunSubmissions') || '[]');
-            submissions.unshift(newSubmission); // เอาข้อมูลใหม่ไว้บนสุด
+            submissions.unshift(newSubmission);
             localStorage.setItem('cityRunSubmissions', JSON.stringify(submissions));
 
-            alert(`🎉 ส่งผลสำเร็จ! คุณได้คะแนนความแม่นยำ: ${score}/3 จุด`);
+            alert(`🎉 ส่งผลสำเร็จ! หมายเลข ${bib} ได้คะแนนความแม่นยำ: ${score}/3 จุด`);
             
-            // ล้างหน้าจอเพื่อเตรียมนักวิ่งคนต่อไป
             localStorage.removeItem('cityRunProgress');
             document.getElementById('quizForm').reset();
         }
@@ -241,7 +248,7 @@
                 tr.className = "border-b border-gray-100 bg-white hover:bg-gray-50 transition";
                 tr.innerHTML = `
                     <td class="p-3">
-                        <div class="font-bold text-blue-700">${sub.id}</div>
+                        <div class="font-bold text-blue-700 text-lg">${sub.id}</div>
                         <div class="text-xs text-gray-400">เวลา: ${sub.time}</div>
                     </td>
                     <td class="p-3 text-center align-middle">${checkAnswer(sub.q1, 'q1')}</td>
